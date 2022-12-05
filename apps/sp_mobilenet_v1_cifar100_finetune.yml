@@ -1,0 +1,69 @@
+# data
+dataset: cifar100
+num_workers: 6
+image_size: 224
+max_image_size: 256
+topk: [1, 5]
+batch_size: 128
+test_batch_size: 1024
+
+# GPU
+mp_dist: True
+dist_url: 'tcp://127.0.0.1:56361'
+world_size: 1
+rank: 0
+dist_backend: nccl
+
+# optimizer
+optimizer: sgd_dw
+momentum: 0.9
+weight_decay: 0.0001
+nesterov: True
+
+# scheduler
+lr_scheduler: multistep
+multistep_lr_milestones: [60, 90, 110]
+multistep_lr_gamma: 0.2
+
+# learning
+lr: 0.1
+slimming_sparsity_rate: 0.00001
+num_epochs: 120
+
+# model profiling
+flops_mobile_mode: True
+profiling: [gpu]
+#profiling_only: True
+#num_forwards: 1000
+#pre_num_forwards: 1000
+#profiling_batch_size: 64
+
+# pruning
+update_BN: True
+base_model_path: logs/sp_mobilenet_v1/0.5_0.75_1.0/cifar100/base/best_model_1.0.pt
+min_size_ratio: 0.1
+multi_base_pruning: True
+#set_pretrained_base: True
+multi_base_model_path:
+  - logs/sp_mobilenet_v1/0.5_0.75_1.0/cifar100/base/best_model_0.75.pt
+  - logs/sp_mobilenet_v1/0.5_0.75_1.0/cifar100/base/best_model_1.0.pt
+  - logs/sp_mobilenet_v1/0.5_0.75_1.0/cifar100/base/best_model_1.3.pt
+base_width_mult_list: [0.75, 1.0, 1.3]
+reinit_params: True
+
+# others
+slimmable_training: True
+width_mult_list: [0.648, 0.7419, 0.7635, 1.5]
+inplace_kd: True
+kd_T: 2
+kd_alpha: 0.9
+finetune_log_dir: logs/sp_mobilenet_v1/0.5_0.75_1.0/cifar100/finetune
+best_model_path: best_model.pt
+checkpoint_path: latest_checkpoint.pt
+model: models.sp_mobilenet_v1
+random_seed: 1
+reset_parameters: True
+init_bn_val: 0.5
+#resume: True
+#test_only: True
+#pretrained: logs/sp_mobilenet_v1/0.5_0.75_1.0/cifar100/finetune/best_model.pt

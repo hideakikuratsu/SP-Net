@@ -1,0 +1,53 @@
+# data
+dataset: imagenet
+num_workers: 6
+image_size: 224
+max_image_size: 256
+topk: [1, 5]
+batch_size: 256
+test_batch_size: 1024
+
+# GPU
+mp_dist: True
+dist_url: 'tcp://127.0.0.1:56361'
+world_size: 1
+rank: 0
+dist_backend: nccl
+
+# optimizer
+optimizer: sgd_no_bias_decay
+momentum: 0.9
+weight_decay: 0.00004
+nesterov: True
+label_smoothing: 0.1
+zero_gamma: True
+
+# scheduler
+lr_scheduler: cosine_decaying
+warmup_epochs: 5
+
+# learning
+lr: 0.05
+num_epochs: 150
+
+# model profiling
+flops_mobile_mode: True
+profiling: [gpu]
+#profiling_only: True
+#num_forwards: 1000
+#pre_num_forwards: 1000
+#profiling_batch_size: 64
+
+# others
+slimmable_training: True
+width_mult_list: [0.75, 1.0, 1.3]
+log_dir: logs/s_mobilenet_v2/0.75_1.0_1.3/imagenet
+best_model_path: best_model.pt
+checkpoint_path: latest_checkpoint.pt
+model: models.sp_mobilenet_v2
+sp_model: False
+random_seed: 1
+reset_parameters: True
+#resume: True
+#test_only: True
+#pretrained: logs/s_mobilenet_v2/0.75_1.0_1.3/imagenet/best_model.pt

@@ -1,0 +1,78 @@
+# data
+dataset: imagenet
+randaug_N: 2
+randaug_M: 9
+num_workers: 6
+image_size: 224
+max_image_size: 256
+topk: [1, 5]
+test_batch_size: 1024
+mixup: False
+mixup_alpha: 0.2
+
+# BN calibration
+calibrate_bn: False
+bn_cal_batch_num: -1
+
+# GPU
+mp_dist: True
+dist_url: 'env://'
+world_size: 1
+rank: 0
+dist_backend: nccl
+gpu: null
+
+# optimizer
+optimizer: sgd
+momentum: 0.9
+nesterov: True
+label_smoothing: 0
+zero_gamma: False
+enable_EMA: False
+EMA_decay: 0.9999
+
+# scheduler
+warmup_epochs: 0
+
+# learning
+slimming_sparsity_rate: 0.00001
+
+# model profiling
+profiling: [gpu]
+profiling_only: False
+profiling_verbose: False
+flops_mobile_mode: False
+num_forwards: 10
+pre_num_forwards: 10
+profiling_batch_size: 1
+
+# pruning
+update_BN: False
+l1_based_pruning: False
+zpm_pruning: False
+mask_pruning: False
+min_size_ratio: 0.1
+multi_base_pruning: False
+set_pretrained_base: False
+reinit_params: False
+
+# others
+AMP: True
+slimmable_training: False
+width_mult_list_test: null
+inplace_kd: False
+kd_T: 1
+kd_alpha: 0.9
+num_sample_training: 2
+nonuniform: False
+stochastic_depth_prob: 0.2
+sp_model: True
+random_seed: 0
+reset_parameters: True
+init_bn_val: 0.5
+eliminate_width: False
+train_only_target_width: False
+resume: False
+test_only: False
+skip_training: False
+pretrained: ''

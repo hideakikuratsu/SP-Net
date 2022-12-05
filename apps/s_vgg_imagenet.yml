@@ -1,0 +1,51 @@
+# data
+dataset: imagenet
+num_workers: 6
+image_size: 224
+max_image_size: 256
+topk: [1, 5]
+batch_size: 256
+test_batch_size: 512
+
+# GPU
+mp_dist: True
+dist_url: 'tcp://127.0.0.1:56361'
+world_size: 1
+rank: 0
+dist_backend: nccl
+
+# optimizer
+optimizer: sgd
+momentum: 0.9
+weight_decay: 0.0001
+nesterov: True
+
+# scheduler
+lr_scheduler: multistep
+multistep_lr_milestones: [30, 50, 70, 80]
+multistep_lr_gamma: 0.2
+
+# learning
+lr: 0.1
+num_epochs: 90
+
+# model profiling
+profiling: [gpu]
+#profiling_only: True
+#num_forwards: 1000
+#pre_num_forwards: 1000
+#profiling_batch_size: 64
+
+# others
+slimmable_training: True
+width_mult_list: [0.25, 0.5, 1.0]
+log_dir: logs/s_vgg/0.25_0.5_1.0/imagenet
+best_model_path: best_model.pt
+checkpoint_path: latest_checkpoint.pt
+model: models.sp_vgg
+sp_model: False
+random_seed: 1
+reset_parameters: True
+#resume: True
+#test_only: True
+#pretrained: logs/s_vgg/0.25_0.5_1.0/imagenet/best_model.pt

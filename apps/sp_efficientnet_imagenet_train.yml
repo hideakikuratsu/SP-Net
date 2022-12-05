@@ -1,0 +1,63 @@
+# data
+dataset: imagenet_randaug
+randaug_N: 2
+randaug_M: 10
+num_workers: 6
+image_size: 256
+max_image_size: 256
+topk: [1, 5]
+batch_size: 256
+test_batch_size: 1024
+mixup: True
+mixup_alpha: 0.2
+
+# GPU
+mp_dist: True
+dist_url: 'tcp://127.0.0.1:56361'
+world_size: 1
+rank: 0
+dist_backend: nccl
+
+# optimizer
+optimizer: sgd_no_bias_decay
+momentum: 0.9
+weight_decay: 0.00004
+nesterov: True
+label_smoothing: 0.1
+zero_gamma: True
+#enable_EMA: True
+#EMA_decay: 0.9999
+
+# scheduler
+lr_scheduler: cosine_decaying
+warmup_epochs: 5
+
+# learning
+lr: 0.05
+slimming_sparsity_rate: 0.00001
+num_epochs: 200
+
+# model profiling
+profiling: [gpu]
+#profiling_only: True
+#num_forwards: 1000
+#pre_num_forwards: 1000
+#profiling_batch_size: 64
+
+# pruning
+update_BN: True
+
+# others
+width_mult_list: [1.0]
+log_dir: logs/sp_efficientnet/b2/imagenet/base
+best_model_path: best_model_1.0.pt
+checkpoint_path: latest_checkpoint_1.0.pt
+model: models.sp_efficientnet
+type: b2
+stochastic_depth_prob: 0.2
+random_seed: 1
+reset_parameters: True
+init_bn_val: 0.5
+#resume: True
+#test_only: True
+#pretrained: logs/sp_efficientnet/b2/imagenet/base/best_model_1.0.pt
